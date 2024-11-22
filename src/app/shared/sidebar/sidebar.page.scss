@@ -1,0 +1,66 @@
+/* Estilo general del sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Oculto por defecto */
+    width: 250px;
+    height: 100%;
+    background-color: #333; /* Fondo oscuro */
+    color: #00ff00; /* Texto verde */
+    transition: left 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  }
+  
+  .sidebar.open {
+    left: 0; /* Sidebar visible */
+  }
+  
+  .sidebar-header {
+    padding: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #444;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+  }
+  
+  .sidebar ul li {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .sidebar ul li:hover {
+    background-color: #444;
+  }
+  
+  .sidebar ul li i {
+    margin-right: 15px;
+    font-size: 1.2rem;
+  }
+  
+  .main-content {
+    padding: 20px;
+  }
+  
+  /* Responsive: Ocultar el sidebar si no está abierto */
+  @media (max-width: 768px) {
+    .sidebar {
+      left: -250px;
+    }
+    .sidebar.open {
+      left: 0;
+    }
+  }
+  

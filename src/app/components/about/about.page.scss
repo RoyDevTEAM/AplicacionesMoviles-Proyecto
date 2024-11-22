@@ -1,0 +1,146 @@
+:root {
+    --dark-bg: #121212;
+    --dark-card-bg: #1e1e1e;
+    --dark-text: #ffffff;
+    --primary-color: #bb86fc;
+  }
+  
+  ion-content {
+    --background: #121212;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Banner de Bienvenida */
+  .about-banner {
+    background: linear-gradient(135deg, #bb86fc, #6200ee);
+    color: #ffffff;
+    text-align: center;
+    padding: 40px 20px;
+    border-radius: 0 0 20px 20px;
+    animation: slideIn 1s ease-out;
+  }
+  
+  .about-banner h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .about-banner p {
+    font-size: 1.2rem;
+  }
+  
+  /* Sección de Descripción */
+  .about-header {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .about-header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #bb86fc;
+    animation: fadeIn 1.2s ease;
+  }
+  
+  .about-header p {
+    font-size: 1rem;
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+  
+  /* Sección de Equipo */
+  .about-team {
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px;
+    animation: fadeInUp 1.3s ease;
+  }
+  
+  .about-team h2 {
+    font-size: 1.5rem;
+    color: #bb86fc;
+    text-align: center;
+  }
+  
+  .about-team ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    text-align: left;
+  }
+  
+  .about-team ul li {
+    font-size: 1rem;
+    margin: 5px 0;
+    color:#ffffff ;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .about-team ul li i {
+    color: #bb86fc;
+  }
+  
+  /* Botón */
+  ion-button {
+    margin-top: 20px;
+    --background: #bb86fc;
+    --color: #ffffff;
+    --border-radius: 10px;
+    animation: bounceIn 1.5s ease;
+  }
+  
+  /* Animaciones */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes bounceIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    70% {
+      transform: scale(0.9);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  

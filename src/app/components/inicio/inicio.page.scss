@@ -1,0 +1,143 @@
+/* General */
+:root {
+    --dark-bg: #121212;
+    --dark-card-bg: #1e1e1e;
+    --dark-text: #ffffff;
+    --primary-color: #bb86fc;
+  }
+  
+ 
+  .bg{
+   --background-color:  #121212;
+    --color: #ffffff;
+  }
+  /* Sidebar */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color:  #121212;
+    transition: all 0.3s ease-in-out;
+    padding: 20px 10px;
+    z-index: 1000;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .sidebar.open {
+    left: 0;
+  }
+  
+  .sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #bb86fc;
+  }
+  
+  .close-btn {
+
+    background:transparent;
+    border: none;
+    color: #bb86fc;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+  }
+  
+  .sidebar ul li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .sidebar ul li:hover {
+    background-color: #bb86fc;
+    color: #121212;
+  }
+  
+  /* Banner Slider */
+  .banner-slider {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    height: 200px;
+    position: relative;
+  }
+  
+  .banner-slider .slide {
+    flex: 0 0 100%;
+    background-size: cover;
+    background-position: center;
+    animation: slider 9s infinite;
+  }
+  
+  .banner-slider .slide:nth-child(1) {
+    background-image: url('https://png.pngtree.com/background/20210710/original/pngtree-unity-cooperation-banner-poster-picture-image_1018256.jpg');
+  }
+  
+  .banner-slider .slide:nth-child(2) {
+    background-image: url('https://assets.bacancytechnology.com/main-boot-5/images/unity-dev/banner.jpg?v-1');
+  }
+  
+  .banner-slider .slide:nth-child(3) {
+    background-image: url('https://miro.medium.com/v2/resize:fit:1115/1*hwhOXxouC98LF5oiP_0Ccg.jpeg');
+  }
+  
+  .slide-text {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: #ffffff;
+    background:transparent;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  @keyframes slider {
+    0%, 33.33% { transform: translateX(0); }
+    33.34%, 66.66% { transform: translateX(-100%); }
+    66.67%, 100% { transform: translateX(-200%); }
+  }
+  
+  /* Tarjetas */
+  .model-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 10px;
+  }
+  
+  .model-card {
+    background-color:#1e1e1e;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .model-card iframe {
+    width: 100%;
+    height: 150px;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .model-card p {
+    margin: 10px 0 0;
+    color: #bb86fc;
+    font-size: 0.9rem;
+  }
+  

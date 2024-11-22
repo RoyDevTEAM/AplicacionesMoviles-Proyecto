@@ -1,0 +1,39 @@
+<ion-app>
+  <!-- Header con el botón del menú hamburguesa -->
+  <ion-header>
+    <ion-toolbar color="dark">
+      <ion-buttons slot="start">
+        <ion-button (click)="toggleSidebar()">
+          <i class="fas fa-bars" style="color: white;"></i>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>Mi Aplicación</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Sidebar -->
+  <div [class.open]="sidebarOpen" class="sidebar">
+    <div class="sidebar-header">
+      <h2>Menú</h2>
+    </div>
+    <ul>
+      <li>
+        <i class="fas fa-user"></i>
+        <span>Perfil</span>
+      </li>
+      <li>
+        <i class="fas fa-cubes"></i>
+        <span>Modelos</span>
+      </li>
+      <li>
+        <i class="fas fa-info-circle"></i>
+        <span>Acerca de Nosotros</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Contenido principal -->
+  <ion-content>
+    
+  </ion-content>
+</ion-app>

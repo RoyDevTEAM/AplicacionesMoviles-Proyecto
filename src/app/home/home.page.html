@@ -1,20 +1,9 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<div class="w-full h-screen bg-black overflow-hidden relative">
+  <!-- Pantalla de carga -->
+  <div id="loading" class="absolute inset-0 flex items-center justify-center text-white">
+    <p>Cargando escena...</p>
   </div>
-</ion-content>
+
+  <!-- Canvas para Three.js -->
+  <canvas #canvas class="absolute top-0 left-0 w-full h-full"></canvas>
+</div>

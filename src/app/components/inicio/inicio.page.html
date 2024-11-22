@@ -1,0 +1,75 @@
+<ion-app>
+  <!-- Header -->
+  <ion-header>
+    <ion-toolbar color="dark">
+      <ion-buttons slot="start">
+        <ion-button (click)="toggleSidebar()" class="cerrar">
+          <i class="fas fa-bars" style="color: white;"></i>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>Inicio</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Sidebar -->
+<div [class.open]="sidebarOpen" class="sidebar">
+  <div class="sidebar-header">
+    <h2>Menú</h2>
+    <ion-button class="close-btn" (click)="toggleSidebar()">✕</ion-button>
+  </div>
+  <ul>
+    <li (click)="navigateTo('profile')">
+      <i class="fas fa-user"></i>
+      <span>Perfil</span>
+    </li>
+    <li (click)="navigateTo('models')">
+      <i class="fas fa-cubes"></i>
+      <span>Modelos</span>
+    </li>
+    <li (click)="navigateTo('about')">
+      <i class="fas fa-info-circle"></i>
+      <span>Acerca de Nosotros</span>
+    </li>
+  </ul>
+</div>
+
+  <!-- Contenido principal -->
+  <ion-content color="dark">
+    <!-- Banner Slider -->
+    <div class="banner-slider">
+      <div class="slide">
+        <div class="slide-text">
+          <h1>Explora la Innovación</h1>
+          <p>Descubre nuevas perspectivas en tecnología.</p>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="slide-text">
+          <h1>Modelos Interactivos</h1>
+          <p>Interactúa con nuestros modelos en tiempo real.</p>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="slide-text">
+          <h1>Crea tu Mundo</h1>
+          <p>Conviértete en un creador sin límites.</p>
+        </div>
+      </div>
+    </div>
+
+   
+
+    <!-- Buscador -->
+    <ion-searchbar [(ngModel)]="searchTerm" debounce="500" placeholder="Buscar modelos..." (ionInput)="filterModels()"></ion-searchbar>
+
+    <!-- Filtro dinámico de modelos -->
+    <div class="model-cards">
+      <div *ngFor="let model of filteredModels" class="model-card">
+        <div class="sketchfab-embed-wrapper">
+          <iframe [src]="sanitizeUrl(model.embedUrl)" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" execution-while-out-of-viewport execution-while-not-rendered web-share></iframe>
+        </div>
+        <p>{{ model.title }}</p>
+      </div>
+    </div>
+  </ion-content>
+</ion-app>
