@@ -1,42 +1,64 @@
 import { Injectable } from '@angular/core';
-import { Camera } from 'three';
+import { PerspectiveCamera, Vector3 } from 'three';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlayerControlsService {
-  private speed = 0.1; // Velocidad de movimiento
-  private rotationSpeed = 0.02; // Velocidad de rotación
+  private velocity = new Vector3(); // Velocidad actual
+  private acceleration = 5; // Aceleración al presionar teclas
+  private friction = 0.95; // Fricción para ralentizar el movimiento
+  private maxSpeed = 10; // Velocidad máxima permitida
+  private direction = new Vector3(); // Dirección actual del movimiento
 
-  constructor() {}
-
-  // Mover hacia adelante
-  moveForward(camera: Camera): void {
-    camera.position.z -= this.speed;
+  /**
+   * Maneja las teclas presionadas para ajustar la dirección del movimiento.
+   */
+  handleKey(key: string, camera: PerspectiveCamera): void {
+    switch (key) {
+      case 'ArrowUp':
+        this.direction.z = -1;
+        break;
+      case 'ArrowDown':
+        this.direction.z = 1;
+        break;
+      case 'ArrowLeft':
+        this.direction.x = -1;
+        break;
+      case 'ArrowRight':
+        this.direction.x = 1;
+        break;
+      case 'a': // Movimiento lateral izquierdo
+        this.direction.x = -1;
+        break;
+      case 'd': // Movimiento lateral derecho
+        this.direction.x = 1;
+        break;
+      default:
+        this.direction.set(0, 0, 0); // Sin movimiento
+        break;
+    }
   }
 
-  // Mover hacia atrás
-  moveBackward(camera: Camera): void {
-    camera.position.z += this.speed;
-  }
+  /**
+   * Actualiza la posición de la cámara basándose en la velocidad y el delta.
+   */
+  update(camera: PerspectiveCamera, delta: number): void {
+    // Acelerar hacia la dirección deseada
+    if (this.direction.length() > 0) {
+      this.velocity.addScaledVector(this.direction, this.acceleration * delta);
+    }
 
-  // Mover hacia la izquierda
-  moveLeft(camera: Camera): void {
-    camera.position.x -= this.speed;
-  }
+    // Aplicar fricción para disminuir la velocidad gradualmente
+    this.velocity.multiplyScalar(this.friction);
 
-  // Mover hacia la derecha
-  moveRight(camera: Camera): void {
-    camera.position.x += this.speed;
-  }
+    // Limitar la velocidad máxima
+    this.velocity.clampLength(0, this.maxSpeed);
 
-  // Girar hacia la izquierda
-  turnLeft(camera: Camera): void {
-    camera.rotation.y += this.rotationSpeed;
-  }
+    // Mover la cámara según la velocidad actual
+    camera.position.addScaledVector(this.velocity, delta);
 
-  // Girar hacia la derecha
-  turnRight(camera: Camera): void {
-    camera.rotation.y -= this.rotationSpeed;
+    // Restablecer la dirección para evitar movimientos continuos sin teclas presionadas
+    this.direction.set(0, 0, 0);
   }
 }

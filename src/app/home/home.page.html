@@ -1,6 +1,10 @@
 <div class="w-full h-screen bg-black overflow-hidden relative">
   <!-- Pantalla de carga -->
-  <div id="loading" class="absolute inset-0 flex items-center justify-center text-white">
+  <div
+    id="loading"
+    class="absolute inset-0 flex items-center justify-center text-white"
+    *ngIf="loading"
+  >
     <p>Cargando escena...</p>
   </div>
 

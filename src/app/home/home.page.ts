@@ -5,6 +5,7 @@ import {
   WebGLRenderer,
   AmbientLight,
   Color,
+  Clock,
 } from 'three';
 import { VRButton } from 'three/examples/jsm/webxr/VRButton';
 import { ModelLoaderService } from '../core/Services/model-loader.service';
@@ -21,6 +22,9 @@ export class HomePage implements AfterViewInit {
   private scene!: Scene;
   private camera!: PerspectiveCamera;
   private renderer!: WebGLRenderer;
+  private clock = new Clock();
+
+  loading = true; // Control para pantalla de carga
 
   constructor(
     private modelLoader: ModelLoaderService,
@@ -28,14 +32,13 @@ export class HomePage implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
-    this.initThreeJS(); // Inicializa la escena y el renderizador
-    this.initLaberinto(); // Carga el modelo 3D del laberinto
-    this.animate(); // Inicia la animación y el bucle de renderizado
+    this.initThreeJS();
+    this.loadScene();
+    this.animate();
   }
 
   private initThreeJS(): void {
     this.scene = new Scene();
-    this.scene.background = new Color(0x000000);
 
     this.camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.camera.position.set(0, 1.6, 5);
@@ -52,54 +55,38 @@ export class HomePage implements AfterViewInit {
     const light = new AmbientLight(0xffffff, 1);
     this.scene.add(light);
 
-    window.addEventListener('resize', () => {
-      this.camera.aspect = window.innerWidth / window.innerHeight;
-      this.camera.updateProjectionMatrix();
-      this.renderer.setSize(window.innerWidth, window.innerHeight);
-    });
+    window.addEventListener('resize', this.onWindowResize.bind(this));
   }
 
-  private async initLaberinto(): Promise<void> {
+  private async loadScene(): Promise<void> {
     try {
-      const laberinto = await this.modelLoader.loadModel('/assets/models/low_poly_hand_-_3d_model.glb');
-      laberinto.position.set(0, 0, 0);
-      laberinto.scale.set(1, 1, 1);
-      this.scene.add(laberinto);
+      const model = await this.modelLoader.loadModel('/assets/models/baba_yagas_hut.glb');
+      model.position.set(0, 0, 0);
+      model.scale.set(1, 1, 1);
+      this.scene.add(model);
     } catch (error) {
-      console.error('Error al cargar el modelo del laberinto:', error);
+      console.error('Error al cargar el modelo:', error);
+    } finally {
+      this.loading = false;
     }
   }
 
   private animate(): void {
     this.renderer.setAnimationLoop(() => {
+      const delta = this.clock.getDelta(); // Para controlar el tiempo entre frames
+      this.playerControls.update(this.camera, delta); // Actualizar controles
       this.renderer.render(this.scene, this.camera);
     });
   }
 
-  /**
-   * Detecta teclas presionadas para mover la cámara
-   */
+  private onWindowResize(): void {
+    this.camera.aspect = window.innerWidth / window.innerHeight;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(window.innerWidth, window.innerHeight);
+  }
+
   @HostListener('window:keydown', ['$event'])
   handleKeyDown(event: KeyboardEvent): void {
-    switch (event.key) {
-      case 'ArrowUp': // Adelante
-        this.playerControls.moveForward(this.camera);
-        break;
-      case 'ArrowDown': // Atrás
-        this.playerControls.moveBackward(this.camera);
-        break;
-      case 'ArrowLeft': // Rotar a la izquierda
-        this.playerControls.turnLeft(this.camera);
-        break;
-      case 'ArrowRight': // Rotar a la derecha
-        this.playerControls.turnRight(this.camera);
-        break;
-      case 'a': // Mover a la izquierda
-        this.playerControls.moveLeft(this.camera);
-        break;
-      case 'd': // Mover a la derecha
-        this.playerControls.moveRight(this.camera);
-        break;
-    }
+    this.playerControls.handleKey(event.key, this.camera);
   }
 }
